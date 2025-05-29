@@ -1,4 +1,4 @@
-import AddressAutoCompleteInput from '@/components/adress-autocomplete.input'
+import AddressAutoCompleteInput from '@/components/address-autocomplete.input'
 import { Button } from '@/components/ui/button'
 import { useMySpotStore } from '@/store'
 import { LatLng, ListSpotPropsType } from '@/types'
@@ -22,7 +22,7 @@ function SpotAddress({ onNext }: ListSpotPropsType) {
         setMessage('')
         mySpotStore.updateState({
             address: address,
-            gpscooords: gpscoords
+            gpscoords: gpscoords
         })
     }
   return (
