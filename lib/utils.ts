@@ -38,7 +38,7 @@ export const buildMapInfoCardContent = (title: string, address: string, totalSpo
       <div>${address}</div>
       <hr />
       <div>Total spots: ${totalSpots}</div>
-      <div>Hourly price: ${formatAmountForDisplay(price, 'CAD')}</div>
+      <div>Hourly price: ${formatAmountForDisplay(price, 'INR')}</div>
       </div>
       
   </div>
@@ -95,4 +95,31 @@ export const destinationPin = (type: string) => {
   })
 
   return pinElement
+}
+
+export type ReturnType = {
+  time: string,
+  display: string
+}
+
+export function getTimeSlots(startTime = "00:00", endTime="23:45"): ReturnType[] {
+  const timeArray : ReturnType[] = []
+  const parsedStartTime: Date = new Date(`2000-01-01T${startTime}:00`)
+  const parsedEndTime: Date = new Date(`2000-01-01T${endTime}:00`)
+
+  let currentTime: Date = parsedStartTime
+  while (currentTime <= parsedEndTime) {
+    const hours = currentTime.getHours().toString().padStart(2, "0")
+    const minutes = currentTime.getMinutes().toString().padStart(2, "0")
+    const ampm = currentTime.getHours() < 12 ? "AM" : "PM"
+    const timeString = `${hours}:${minutes} ${ampm}`
+    timeArray.push({
+      time: `${hours}:${minutes}`,
+      display: timeString
+    })
+
+    currentTime.setMinutes(currentTime.getMinutes() + 30)
+  }
+
+  return timeArray
 }

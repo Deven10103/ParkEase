@@ -39,7 +39,7 @@ const LocationCard: React.FC<Props> = ({
             <CardContent>
                 <div className="mb-4 grid grid-cols-1 items-start pb-4">
                     <div className="space-y-2">
-                        <p className="text-sm font-medium leading-none">Hourly price: {formatAmountForDisplay(price.hourly, 'CAD')}</p>
+                        <p className="text-sm font-medium leading-none">Hourly price: {formatAmountForDisplay(price.hourly, 'INR')}</p>
                         <p className="text-sm font-medium leading-none">Number of spots: {numberOfSpots}</p>
                         <hr />
                         <p className="text-sm font-medium leading-none">Spots booked: {spotsBooked}</p>
