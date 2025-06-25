@@ -10,6 +10,7 @@ import DateSelect from './date-select'
 import TimeSelect from './time-select'
 import { LatLng } from '@/types'
 import AddressAutoCompleteInput from './address-autocomplete.input'
+import { format } from 'date-fns'
 
 const FormSchema = z.object({
     address: z.string(),
@@ -29,7 +30,11 @@ const FormSchema = z.object({
     })
 })
 
-function SearchForm() {
+function SearchForm({
+    onSearch
+}: {
+    onSearch: (data: any) => void
+}) {
 
     const form = useForm<z.infer<typeof FormSchema>>({
         resolver: zodResolver(FormSchema),
@@ -50,7 +55,9 @@ function SearchForm() {
     }, [arrivingTime, form])
 
     function onSubmit(formData: z.infer<typeof FormSchema>) {
-        console.log(formData)
+        const data = { ...formData, arrivingon: format(formData.arrivingon, 'yyyy-MM-dd')}
+
+        onSearch(data)
     }
 
     const handleAddressSelect = (address: string,gpscoords:LatLng) => {

@@ -1,8 +1,10 @@
 'use server'
 
+import { SearchParams } from "@/components/search-component"
 import { connectToDB } from "@/lib/db"
+import { BookingModel } from "@/schemas/booking"
 import { ParkingLocation, ParkingLocationModel } from "@/schemas/parking-locations"
-import { ParkingLocationStatus, UpdateLocationParams } from "@/types"
+import { BookingStatus, ParkingLocationStatus, UpdateLocationParams } from "@/types"
 import { revalidatePath } from "next/cache"
 
 
@@ -59,4 +61,54 @@ export async function updateLocation({ id, path, location }: {
         throw error
     }
 
+}
+
+export async function findNearbyLocations(maxDistance: number, searchParams: SearchParams) {
+
+    try {
+
+        await connectToDB()
+
+        const st = new Date(`${searchParams.arrivingon}T${searchParams.arrivingtime}`)
+        const et = new Date(`${searchParams.arrivingon}T${searchParams.leavingtime}`)
+
+        const parkingLocations = await ParkingLocationModel.find({
+            location: {
+                $nearSphere: {
+                    $geometry: {
+                        type: 'Point',
+                        coordinates: [searchParams.gpscoords.lng, searchParams.gpscoords.lat]
+                    },
+                    $maxDistance: maxDistance // meters
+                }
+            }
+        }).lean<ParkingLocation[]>();
+
+        // go through all locations and find the bookings for it
+        const availableLocations =
+            await Promise.all(parkingLocations.map(async (location: ParkingLocation) => {
+
+                const bookings = await BookingModel.find({
+                    locationid: location._id,
+                    status: BookingStatus.BOOKED,
+                    starttime: {
+                        $lt: et
+                    },
+                    endtime: {
+                        $gt: st
+                    }
+                }).lean()
+
+                if (bookings.length < location.numberofspots) {
+                    return { ...location, ...{ bookedspots: bookings.length } }
+                } else
+                    return { ...location, ...{ bookedspots: bookings.length, status: ParkingLocationStatus.FULL } }
+            }))
+
+        return JSON.parse(JSON.stringify(availableLocations))
+
+    } catch (error) {
+        console.log(error)
+        throw error
+    }
 }
