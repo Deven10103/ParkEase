@@ -1,10 +1,9 @@
-import React from "react";
+import React from 'react'
 
-function Revenue(){
-
-    return (
-        <div>Revenue</div>
-    );
+function RevenuePage() {
+  return (
+    <div>RevenuePage</div>
+  )
 }
 
-export default Revenue;
+export default RevenuePage

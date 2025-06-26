@@ -18,4 +18,4 @@ function MobileSidebar({ open, setOpen} : {
   )
 }
 
-export default MobileSidebar;
+export default MobileSidebar

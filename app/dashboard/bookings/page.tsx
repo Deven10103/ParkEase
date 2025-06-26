@@ -1,10 +1,9 @@
-import React from "react";
+import React from 'react'
 
-function Bookings(){
-
-    return (
-        <div>Bookings</div>
-    );
+function BookingsPage() {
+  return (
+    <div>BookingsPage</div>
+  )
 }
 
-export default Bookings;
+export default BookingsPage

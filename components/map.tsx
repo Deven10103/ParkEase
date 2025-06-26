@@ -24,12 +24,9 @@ function Map({ mapParams }: { mapParams: string}) {
     useEffect(() => {
         if (isLoaded) {
             const mapOptions = {
-                center: params.length > 0 ? {
+                center: {
                     lat: params[0].gpscoords.lat,
                     lng: params[0].gpscoords.lng
-                } : {
-                    lat: 20.5937,
-                    lng: 78.9629
                 },
                 zoom: 14,
                 mapId: 'MY-MAP-ID-1234'

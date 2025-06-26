@@ -35,7 +35,7 @@ function SearchResult({
                                     Hourly price:
                                 </p>
                                 <p className="text-sm">
-                                    {formatAmountForDisplay(loc.price?.hourly!, 'CAD')}
+                                    {formatAmountForDisplay(loc.price?.hourly!, 'INR')}
                                 </p>
                             </div>
                             <div className="grid grid-cols-2">

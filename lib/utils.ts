@@ -13,7 +13,7 @@ export function formatAmountForDisplay(
   amount: number, currency: string
 ): string {
 
-  let numberFormat = new Intl.NumberFormat(['en-US'], {
+  let numberFormat = new Intl.NumberFormat(['en-us'], {
     style:'currency',
     currency: currency,
     currencyDisplay: 'symbol'
@@ -22,6 +22,30 @@ export function formatAmountForDisplay(
   const formatedAmount = numberFormat.format(amount)
   return formatedAmount === 'NaN' ? '' : formatedAmount
 }
+
+export function formatAmountForStripe(
+  amount: number,
+  currency: string
+): number {
+
+  let numberFormat = new Intl.NumberFormat(['en-US'], {
+    style:'currency',
+    currency: currency,
+    currencyDisplay: 'symbol'
+  })
+
+  const parts = numberFormat.formatToParts(amount)
+  let zeroDecimalCurrency: boolean = true
+
+  for (let part of parts) {
+    if (part.type === 'decimal') {
+      zeroDecimalCurrency = false
+    }
+  }
+
+  return zeroDecimalCurrency ? amount : Math.round(amount * 100)
+}
+
 
 export function getStreetFromAddress(address: string) {
   return address.split(',')[0]
@@ -101,7 +125,6 @@ export type ReturnType = {
   time: string,
   display: string
 }
-
 export function getTimeSlots(startTime = "00:00", endTime="23:45"): ReturnType[] {
   const timeArray : ReturnType[] = []
   const parsedStartTime: Date = new Date(`2000-01-01T${startTime}:00`)

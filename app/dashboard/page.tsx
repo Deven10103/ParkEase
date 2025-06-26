@@ -1,6 +1,10 @@
-import React from "react";
-import LocationsTileViewPage from "./locations/tileview/page";
+import React from 'react'
+import LocationsTileViewPage from './locations/tileview/page'
 
-export default function DashboardPage(){
-    return <LocationsTileViewPage/>;
+function DashboardPage() {
+  return (
+    <LocationsTileViewPage />
+  )
 }
+
+export default DashboardPage

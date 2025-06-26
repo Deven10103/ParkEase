@@ -55,22 +55,24 @@ function SearchForm({
     }, [arrivingTime, form])
 
     function onSubmit(formData: z.infer<typeof FormSchema>) {
+        
         const data = { ...formData, arrivingon: format(formData.arrivingon, 'yyyy-MM-dd')}
 
         onSearch(data)
     }
 
-    const handleAddressSelect = (address: string,gpscoords:LatLng) => {
+    const handleAddressSelect = (address: string, gpscoords: LatLng) => {
         form.setValue('address', address)
         form.setValue('gpscoords', gpscoords)
-    }
 
+    }
     return (
         <div className="flex flex-col lg:flex-row">
             <div className='grid gap-y-1.5 lg:w-1/2'>
                 <Label htmlFor='parkingat'>Address</Label>
-                <AddressAutoCompleteInput onAddressSelect={handleAddressSelect} selectedAddress=''/>
+                <AddressAutoCompleteInput onAddressSelect={handleAddressSelect} selectedAddress='' />
             </div>
+
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="gap-y-2 grid grid-cols-1 lg:grid-cols-4 gap-x-32 items-end">
 
@@ -81,7 +83,7 @@ function SearchForm({
                             <FormItem className='lg:w-[250px] grid'>
                                 <FormLabel>Arriving on</FormLabel>
                                 <FormControl>
-                                    <DateSelect field={field} disableDates={true}/>
+                                    <DateSelect field={field} disableDates={true} />
                                 </FormControl>
                             </FormItem>
                         )}
@@ -93,7 +95,7 @@ function SearchForm({
                             <FormItem className='lg:w-[250px] grid'>
                                 <FormLabel>Arriving on</FormLabel>
                                 <FormControl>
-                                    <TimeSelect onChange={field.onChange} defaultValue={field.value}/>
+                                    <TimeSelect onChange={field.onChange} defaultValue={field.value} />
                                 </FormControl>
                             </FormItem>
                         )}
@@ -103,9 +105,11 @@ function SearchForm({
                         name='leavingtime'
                         render={({ field }) => (
                             <FormItem className='lg:w-[250px] grid'>
-                                <FormLabel>Arriving on</FormLabel>
+                                <FormLabel>Leaving on</FormLabel>
                                 <FormControl>
-                                    <TimeSelect disableTime={form.getValues('arrivingtime')} onChange={field.onChange} defaultValue={field.value}/>
+                                    <TimeSelect 
+                                    disableTime={form.getValues('arrivingtime')}
+                                    onChange={field.onChange} defaultValue={field.value} />
                                 </FormControl>
                             </FormItem>
                         )}

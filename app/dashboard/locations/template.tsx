@@ -16,4 +16,4 @@ function LocationsTemplate({
   )
 }
 
-export default LocationsTemplate;
+export default LocationsTemplate

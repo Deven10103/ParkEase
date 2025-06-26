@@ -1,19 +1,21 @@
 'use client'
-import { Menu } from "lucide-react";
-import React from "react";
-import { useState } from "react";
+
+import { Menu } from 'lucide-react'
+import React, { useState } from 'react'
 import MobileSidebar from './mobile-sidebar'
-import DesktopSidebar from "./desktop-sidebar";
+import DesktopSidebar from './desktop-sidebar'
 
+function SidebarLayout({
+    children
+}: { children: React.ReactNode }) {
 
-function SidebarLayout({children}:{children:React.ReactNode}){
-    const [open,setOpen] = useState(false);
+    const [open, setOpen] = useState(false)
+
     return (
-         <div className='flex flex-col h-screen'>
+        <div className='flex flex-col h-screen'>
             <div className="flex w-full bg-blue-500 h-12 lg:hidden p-2 text-white items-center">
                 <Menu onClick={() => setOpen(open => !open)} />
                 <h1 className='text-2xl pl-4'>Dashboard</h1>
-                
             </div>
 
             <div className="flex h-screen">
@@ -23,8 +25,8 @@ function SidebarLayout({children}:{children:React.ReactNode}){
                     {children}
                 </main>
             </div>
-            </div>
-    );
+        </div>
+    )
 }
 
-export default SidebarLayout;
+export default SidebarLayout
