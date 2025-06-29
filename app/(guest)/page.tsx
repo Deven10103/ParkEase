@@ -19,7 +19,7 @@ export default function Home() {
         <div className="grid grid-cols-3 place-items center">
 
           <div className="flex flex-col items-center">
-            <div className="flex flex-col bg-blue-500 text-white relative justify-center items-center rounded-full w-12 h-12">
+            <div className="flex flex-col bg-black text-white relative justify-center items-center rounded-full w-12 h-12">
               <p className="text-2xl font-bold
               after:content-[''] after:absolute after:-left-2 after:-top-2 after:w-16 after:h-16 after:-z-[1]
               after:rounded-full after:bg-gray-100
@@ -31,7 +31,7 @@ export default function Home() {
           </div>
 
           <div className="flex flex-col items-center">
-            <div className="flex flex-col bg-blue-500 text-white relative justify-center items-center rounded-full w-12 h-12">
+            <div className="flex flex-col bg-black text-white relative justify-center items-center rounded-full w-12 h-12">
               <p className="text-2xl font-bold
               after:content-[''] after:absolute after:-left-2 after:-top-2 after:w-16 after:h-16 after:-z-[1]
               after:rounded-full after:bg-gray-100
@@ -43,11 +43,11 @@ export default function Home() {
           </div>
 
           <div className="flex flex-col items-center">
-            <div className="flex flex-col bg-blue-500 text-white relative justify-center items-center rounded-full w-12 h-12">
+            <div className="flex flex-col bg-black text-white relative justify-center items-center rounded-full w-12 h-12">
               <p className="text-2xl font-bold
               before:content=[''] before:absolute before:w-[1000px]
               before:-z-10 before:top-1/2 before:h-[2px]
-              before:-left-[920px] before:bg-blue-500
+              before:-left-[920px] before:bg-black
               
               after:content-[''] after:absolute after:-left-2 
               after:-top-2 after:w-16 after:h-16 after:-z-[1]

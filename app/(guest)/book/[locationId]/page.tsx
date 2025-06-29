@@ -6,7 +6,6 @@ import Footer from '@/components/footer'
 import { Button } from '@/components/ui/button'
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import { SelectSeparator } from '@/components/ui/select'
 import { Separator } from '@/components/ui/separator'
 import { formatAmountForDisplay, getStreetFromAddress } from '@/lib/utils'
 import { ParkingLocation } from '@/schemas/parking-locations'
@@ -27,16 +26,16 @@ const FormSchema = z.object({
 function BookPage() {
 
     const [loading, setLoading] = useState(false)
-    const params = useParams<{ locationId: string}>()
+    const params = useParams<{ locationId: string }>()
     const locationId = params.locationId
     const searchParams = useSearchParams()
     const date = searchParams.get('date')
     const startTime = searchParams.get('starttime')
     const endTime = searchParams.get('endtime')
     const [location, setLocation] = useState<ParkingLocation>()
-    const diffInHours = useMemo(() => 
+    const diffInHours = useMemo(() =>
         differenceInMinutes(new Date(`${date}T${endTime}`), new Date(`${date}T${startTime}`))
-    , [date, startTime, endTime]) / 60
+        , [date, startTime, endTime]) / 60
 
     useEffect(() => {
         (async () => {
@@ -53,7 +52,7 @@ function BookPage() {
     })
 
     async function onSubmit(formData: z.infer<typeof FormSchema>) {
- 
+
         const fd = new FormData()
         const amount = diffInHours * location?.price.hourly!
         fd.append('address', getStreetFromAddress(location?.address!))
@@ -68,10 +67,9 @@ function BookPage() {
         await createCheckoutSession(fd)
     }
 
-
     return (
-        <div className='h-full'>
-            <main className="sm:-mt-16 sm:container flex flex-col items-center">
+        <div className='flex flex-col min-h-screen'>
+            <main className="flex-grow sm:-mt-16 sm:container flex flex-col items-center">
 
                 <div className="grid grid-cols-3 w-[400px] sm:w-[700px] p-4 bg-slate-300">
 
@@ -110,7 +108,7 @@ function BookPage() {
                         <FormField
                             control={form.control}
                             name='plateno'
-                            render={({ field}) => (
+                            render={({ field }) => (
                                 <FormItem>
                                     <FormLabel>
                                         Plate #
@@ -119,20 +117,20 @@ function BookPage() {
                                         <Input className='uppercase' placeholder='ABCD 1234' {...field} />
                                     </FormControl>
                                     <FormDescription>
-                                    Make sure your license plate matches the vehicle you park to avoid a parking ticket or towing.
+                                        Make sure your license plate matches the vehicle you park to avoid a parking ticket or towing.
                                     </FormDescription>
                                 </FormItem>
                             )}
-                        />  
+                        />
 
                         {
                             loading ? <Loader /> :
-                            <Button>Proceed to payment</Button>
+                                <Button className="bg-black text-white hover:bg-gray-800">Proceed to payment</Button>
                         }
                     </form>
                 </Form>
             </main>
-            <section className='sm:absolute w-full sm:bottom-0'>
+            <section className='w-full'>
                 <Footer />
             </section>
         </div>

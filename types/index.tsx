@@ -6,7 +6,7 @@ export type LatLng = {
 export type ListSpotPropsType = {
     onNext: () => void,
     onPrev?: () => void
-   }
+}
 
 export type Price = {
     hourly: number

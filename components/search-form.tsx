@@ -67,16 +67,15 @@ function SearchForm({
 
     }
     return (
-        <div className="flex flex-col lg:flex-row">
+        <div className="flex flex-col lg:flex-row gap-4">
             <div className='grid gap-y-1.5 lg:w-1/2'>
                 <Label htmlFor='parkingat'>Address</Label>
                 <AddressAutoCompleteInput onAddressSelect={handleAddressSelect} selectedAddress='' />
             </div>
-
+    
             <Form {...form}>
-                <form onSubmit={form.handleSubmit(onSubmit)} className="gap-y-2 grid grid-cols-1 lg:grid-cols-4 gap-x-32 items-end">
-
-                    <FormField 
+                <form onSubmit={form.handleSubmit(onSubmit)} className="gap-y-2 grid grid-cols-1 lg:grid-cols-4 gap-x-32 items-end lg:mt-0 mt-4">
+                    <FormField
                         control={form.control}
                         name='arrivingon'
                         render={({ field }) => (
@@ -88,7 +87,7 @@ function SearchForm({
                             </FormItem>
                         )}
                     />
-                    <FormField 
+                    <FormField
                         control={form.control}
                         name='arrivingtime'
                         render={({ field }) => (
@@ -100,26 +99,27 @@ function SearchForm({
                             </FormItem>
                         )}
                     />
-                    <FormField 
+                    <FormField
                         control={form.control}
                         name='leavingtime'
                         render={({ field }) => (
                             <FormItem className='lg:w-[250px] grid'>
                                 <FormLabel>Leaving on</FormLabel>
                                 <FormControl>
-                                    <TimeSelect 
-                                    disableTime={form.getValues('arrivingtime')}
-                                    onChange={field.onChange} defaultValue={field.value} />
+                                    <TimeSelect
+                                        disableTime={form.getValues('arrivingtime')}
+                                        onChange={field.onChange} defaultValue={field.value} />
                                 </FormControl>
                             </FormItem>
                         )}
                     />
-
-                    <Button type='submit'>Submit</Button>
+    
+                    <Button type='submit' className="bg-black text-white hover:bg-gray-900">Submit</Button>
                 </form>
             </Form>
         </div>
     )
+    
 }
 
 export default SearchForm
