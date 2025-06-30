@@ -44,7 +44,7 @@ function LocationEditForm({ location }: { location: string }) {
     const onSubmit = async (data: FormInput) => {
         setProgress(true)
         await updateLocation({
-            id: parsedLocation._id as string,
+            id: parsedLocation._id as unknown as string,
             path: pathname,
             location: {
                 address: parsedLocation.address,

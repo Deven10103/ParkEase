@@ -95,8 +95,8 @@ function BookingList() {
                                     <SelectContent>
                                         {
                                             locations.map(location => (
-                                                <SelectItem key={location._id as string} 
-                                                value={location._id as string}>
+                                                <SelectItem key={location._id as unknown as string} 
+                                                value={location._id as unknown as string}>
                                                     {location.address}
                                                 </SelectItem>
                                             ))

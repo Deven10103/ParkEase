@@ -12,6 +12,10 @@ import { compareAsc, format, formatDate } from "date-fns"
 import { revalidatePath } from "next/cache"
 import { Resend } from 'resend'
 
+import nodemailer from "nodemailer"
+import { render } from "@react-email/render"
+
+
 const resend = new Resend(process.env.RESEND_API_KEY)
 
 export async function toggleLocation({ id, path }: {
@@ -151,99 +155,110 @@ export async function getParkingLocations() {
     }
 }
 
+
 export async function sendConfirmationEmail(bookingid: string): Promise<ActionResponse> {
-
-    try {
-        // get the user
-        const user = await currentUser()
-
-        if (!user) {
-            throw new Error('You must be logged in')
-        }
-
-        await connectToDB()
-
-        const booking = await BookingModel.findById<Booking>(bookingid).populate({
-            path: 'locationid', model: ParkingLocationModel
-        }).lean()
-
-        if (booking) {
-            const { data, error } = await resend.emails.send({
-                from: "Gateless Parking <booking@grepsoft.com>",
-                to: user.primaryEmailAddress?.emailAddress!,
-                subject: "Your booking has been confirmed",
-                react: EmailTemplate({
-                    firstName: user?.firstName!,
-                    bookingDate: formatDate(booking.bookingdate, 'MMM dd, yyyy'),
-                    arrivingOn: formatDate(booking.starttime, 'hh:mm a'),
-                    leavingOn: formatDate(booking.endtime, 'hh:mm a'),
-                    plateNo: booking.plate,
-                    address: ((booking?.locationid as any) as ParkingLocation).address
-                })
-            })
-
-            if (error) {
-                console.log(error)
-                return {
-                    code: 1,
-                    message: 'Failed to send email',
-                    error: error
-                }
-            }
-
-            return {
-                code: 0,
-                message: 'Email sent',
-                error: error
-            }
-        }
-
-        return {
-            code: 1,
-            message: 'Something went wrong',
-        }
-
-    } catch (error) {
-        console.log(error)
-        throw error
+  try {
+    const user = await currentUser()
+    if (!user) {
+      throw new Error("You must be logged in")
     }
+
+    await connectToDB()
+
+    const booking = await BookingModel.findById<Booking>(bookingid)
+      .populate({ path: "locationid", model: ParkingLocationModel })
+      .lean()
+
+    if (!booking) {
+      return {
+        code: 1,
+        message: "Booking not found",
+      }
+    }
+
+    const html = await render(
+      EmailTemplate({
+        firstName: user.firstName!,
+        bookingDate: formatDate(booking.bookingdate, "MMM dd, yyyy"),
+        arrivingOn: formatDate(booking.starttime, "hh:mm a"),
+        leavingOn: formatDate(booking.endtime, "hh:mm a"),
+        plateNo: booking.plate,
+        address: (booking.locationid as any).address,
+      })
+    )
+
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: process.env.GMAIL_USER,
+        pass: process.env.GMAIL_PASS,
+      },
+    })
+
+    const info = await transporter.sendMail({
+      from: `"Park Ease" <${process.env.GMAIL_USER}>`,
+      to: user.primaryEmailAddress?.emailAddress!,
+      subject: "Your booking has been confirmed",
+      html,
+    })
+
+    return {
+      code: 0,
+      message: "Email sent",
+      error: null,
+    }
+  } catch (error) {
+    console.error("Email error:", error)
+    return {
+      code: 1,
+      message: "Failed to send email",
+      error,
+    }
+  }
 }
 
-export async function sendViolationEmail(plate: string, address: string, timestamp: string): Promise<ActionResponse> {
 
-    try {
+export async function sendViolationEmail(
+  plate: string,
+  address: string,
+  timestamp: string
+): Promise<ActionResponse> {
+  try {
+    // Create a transporter using Gmail SMTP
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: process.env.GMAIL_USER,
+        pass: process.env.GMAIL_PASS
+      }
+    })
 
-        const { data, error } = await resend.emails.send({
-            from: "Gateless Parking <violation@grepsoft.com>",
-            to: process.env.VIOLATION_EMAIL!,
-            subject: "Violation reported",
-            react: ViolationEmailTemplate({
-                plate: plate,
-                address: address,
-                timestamp: timestamp
-            })
-        })
+    const html = await render(
+      ViolationEmailTemplate({ plate, address, timestamp })
+    )
 
-        if (error) {
-            console.log(error)
-            return {
-                code: 1,
-                message: 'Failed to send email',
-                error: error
-            }
-        }
+    const info = await transporter.sendMail({
+      from: `"Gateless Parking" <${process.env.GMAIL_USER}>`,
+      to: process.env.VIOLATION_EMAIL!,
+      subject: "Violation reported",
+      html: html
+    })
 
-        return {
-            code: 0,
-            message: 'Email sent',
-            error: error
-        }
-
-    } catch (error) {
-        console.log(error)
-        throw error
+    return {
+      code: 0,
+      message: "Email sent",
+      error: null
     }
+  } catch (error) {
+    console.error("Email error:", error)
+    return {
+      code: 1,
+      message: "Failed to send email",
+      error
+    }
+  }
 }
+
 
 
 export async function cancelBooking({ bookingid, path }: {

@@ -86,7 +86,7 @@ export const parkingPin = (type: string) => {
   const glyphImg = document.createElement('div')
   glyphImg.innerHTML = `
     <div class="map_pin_container">
-      <img src='http://localhost:3000/${type}.png' />
+      <img src='/${type}.png' />
     </div>
   `
 
@@ -102,7 +102,7 @@ export const parkingPinWithIndex = (type: string, index: number) => {
   glyphImg.innerHTML = `
     <div class="map_pin_container">
       <div class="map_pin_id"><span>${index}</span></div>
-      <img src='http://localhost:3000/${type}.png' />
+      <img src='/${type}.png' />
     </div>
   `
 
@@ -115,7 +115,7 @@ export const parkingPinWithIndex = (type: string, index: number) => {
 
 export const destinationPin = (type: string) => {
   const glyphImg = document.createElement('img');
-  glyphImg.src = `http://localhost:3000/${type}.png`;
+  glyphImg.src = `/${type}.png`;
   const pinElement = new google.maps.marker.PinElement({
       glyph: glyphImg
   })

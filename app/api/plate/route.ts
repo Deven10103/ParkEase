@@ -3,6 +3,7 @@ import { BookingModel } from "@/schemas/booking"
 import { BookingStatus } from "@/types"
 import { NextResponse } from "next/server"
 
+
 export async function POST(req: Request) {
 
     try {
