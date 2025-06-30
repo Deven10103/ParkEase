@@ -55,7 +55,7 @@ function SearchResult({
                             <Link
                                 className={cn(
                                     buttonVariants({ variant: 'outline' }),
-                                    'bg-black text-white hover:bg-gray-800',
+                                    'bg-black text-white hover:bg-gray-800 hover:text-white',
                                     `${(loc.numberofspots! - loc.bookedspots!) === 0 ? 'hidden' : 'flex'}`
                                 )}
                                 href={`book/${loc.id}?date=${params.arrivingon}&starttime=${params.arrivingtime}&endtime=${params.leavingtime}`}

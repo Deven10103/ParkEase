@@ -13,7 +13,7 @@ function SidebarLayout({
 
     return (
         <div className='flex flex-col h-screen'>
-            <div className="flex w-full bg-blue-500 h-12 lg:hidden p-2 text-white items-center">
+            <div className="flex w-full bg-black h-12 lg:hidden p-2 text-white items-center">
                 <Menu onClick={() => setOpen(open => !open)} />
                 <h1 className='text-2xl pl-4'>Dashboard</h1>
             </div>

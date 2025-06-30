@@ -1,8 +1,9 @@
 
 import { LatLng, ParkingLocationStatus, Price } from '@/types'
-import { Document, Schema, model, models } from 'mongoose'
+import { Document, ObjectId, Schema, model, models } from 'mongoose'
 
 export interface ParkingLocation extends Document {
+    _id:ObjectId,
     address: string,
     gpscoords: LatLng,
     numberofspots: number,

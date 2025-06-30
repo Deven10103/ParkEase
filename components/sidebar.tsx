@@ -38,8 +38,7 @@ function Sidebar() {
             </li>
           </ul>
 
-          <div className="pl-4 text-blue-600">
-            UserButton
+          <div className="pl-4">
             <UserButton/>
           </div>
         </div>

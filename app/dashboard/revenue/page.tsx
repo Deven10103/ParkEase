@@ -48,7 +48,7 @@ async function RevenuePage() {
     }
   ])
   return (
-    <div className="grid lg:grid-cols-4 md:grid-cols-2 gap-2 p-2">Add commentMore actions
+    <div className="grid lg:grid-cols-4 md:grid-cols-2 gap-2 p-2">
       {
         locations.map(location => (
 
@@ -64,7 +64,7 @@ async function RevenuePage() {
               <div className="mb-4 grid grid-cols-1 items-start pb-4 last:mb-0 last:pb-0">
                 <div className="space-y-2">
                   <p className="text-lg font-medium leading none">
-                    Revenue: {formatAmountForDisplay(location.totalAmount, 'CAD')}
+                    Revenue: {formatAmountForDisplay(location.totalAmount, 'INR')}
                   </p>
                 </div>
               </div>

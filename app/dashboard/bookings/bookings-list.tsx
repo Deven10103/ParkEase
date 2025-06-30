@@ -106,7 +106,7 @@ function BookingList() {
                             </FormItem>
                         )}
                     />
-                    <Button type='submit'>Search</Button>
+                    <Button type='submit' className="bg-black text-white hover:bg-gray-500">Search</Button>
                 </form>
             </Form>
 

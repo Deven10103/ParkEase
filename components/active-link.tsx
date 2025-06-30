@@ -12,10 +12,10 @@ type Props = {
 function ActiveLink({children, href}: Props) {
 
     const pathname = usePathname()
-    const isActive = pathname ===  href ? 'bg-blue-600': ''
+    const isActive = pathname ===  href ? 'bg-black': ''
   return (
     <Link href={href} className={`${isActive}`}>
-        <div className={cn("px-4 py-2 rounded-md hover:bg-blue-800", isActive)}>{children}</div>
+        <div className={cn("px-4 py-2 rounded-md hover:bg-black", isActive)}>{children}</div>
     </Link>
   )
 }

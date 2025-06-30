@@ -52,7 +52,7 @@ const LocationCard: React.FC<Props> = ({
                         JSON.stringify({ id: id})
                     } />
                     <Link href={`./edit/${id}`} >
-                        <PencilIcon color="blue" />
+                        <PencilIcon color="black" />
                     </Link>
             </CardFooter>
         </Card>

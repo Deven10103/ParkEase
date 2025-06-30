@@ -10,7 +10,7 @@ function AddLocationButton() {
   return (
     <div>
         <div className="flex flex-col">
-            <Button className='self-end' onClick={() => setOpen(true)}>
+            <Button className='self-end bg-black text-white hover:bg-gray-800' onClick={() => setOpen(true)}>
                 <PlusIcon className='mr-2' />Add Location
             </Button>
             {/* location add dialog */}
