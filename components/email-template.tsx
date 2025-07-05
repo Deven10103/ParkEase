@@ -82,7 +82,7 @@ function EmailTemplate(props: EmailTemplateProps) {
                         <Row>
                             <Column align="center">
                                 <Link
-                                    href="http://parkease-nu.com/mybookings"
+                                    href="http://parkease-nu.vercel.app/mybookings"
                                     style={{ ...button, padding: '10px' }}>
                                     My bookings
                                 </Link>
