@@ -6,6 +6,7 @@
 ### Project Description
 
 **ParkEase** is an innovative Parking Management Application that leverages **Machine Vision** to automate license plate scanning — enabling a gateless parking experience. Cars can simply drive in without stopping at gates; a camera scans their license plate, and the number is extracted using Machine Learning.
+This application also has the feature of dynamic price that the admin can disable if they like on a parking location.The dynamic price is calculated by different factors like in peak working hours the parking locations which are near some offices may increase,the prices may increase based on demand or weather conditions as well,
 
 This real-world project combines cutting-edge technologies across **Machine Learning** and **Web Development** to build a fully functional smart parking system. Violators are automatically detected and reported to parking enforcement, enhancing security and operational efficiency.
 
@@ -68,6 +69,9 @@ APP_KEY=your_app_key
 GMAIL_USER=your_gmail_address
 GMAIL_PASS=your_gmail_app_password
 VIOLATION_EMAIL=your_violation_email
+
+# Weather API KEY From weatherapi.com
+WEATHERAPI_KEY=your_weatherapi_key
 ```
 #### Start the development server
 ```bash

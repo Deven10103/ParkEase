@@ -36,6 +36,11 @@ function Sidebar() {
                 Revenue
               </ActiveLink>
             </li>
+            <li>
+              <ActiveLink href='/'>
+                HomePage
+              </ActiveLink>
+            </li>
           </ul>
 
           <div className="pl-4">

@@ -37,7 +37,9 @@ function SearchComponent() {
       bookedspots: loc.bookedspots,
       status: loc.status,
       type: MapAddressType.PARKINGLOCATION,
-      id: loc._id
+      id: loc._id,
+      dynamicPricing: loc.dynamicPricing,
+      locationCategory: loc.locationCategory,
     }))
 
     if (mapParams.length > 0) {

@@ -1,5 +1,6 @@
 import React from 'react'
 import SidebarLayout from './_components/sidebar-layout'
+import Banners from '@/components/banner'
 
 function DashboardLayout({
     children
@@ -7,7 +8,7 @@ function DashboardLayout({
     children:React.ReactNode
 }) {
   return (
-    <SidebarLayout>{children}</SidebarLayout>
+    <><SidebarLayout>{children}</SidebarLayout></>
   )
 }
 

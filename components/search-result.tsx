@@ -7,6 +7,7 @@ import Link from 'next/link'
 import { buttonVariants } from './ui/button'
 
 function SearchResult({
+    
     locations, params
 }: {
     locations: MapParams[],
@@ -44,6 +45,11 @@ function SearchResult({
                                 </p>
                                 <p className="text-sm">
                                     {loc.numberofspots! - loc.bookedspots!}
+                                </p>
+                            </div>
+                            <div className="grid grid-cols-2">
+                                <p className="text-sm col-span-2 italic text-gray-500">
+                                    *Final price may vary due to high demand or peak hours.
                                 </p>
                             </div>
                         </div>

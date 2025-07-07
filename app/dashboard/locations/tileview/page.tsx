@@ -29,8 +29,6 @@ async function LocationsTileViewPage() {
   return (
     <div className="grid lg:grid-cols-3 md:grid-cols-2 gap-2 p-4">
       {locations.map((location) => {
-        const bookedSpots = bookingsMap.get(location._id.toString()) || 0;
-        const availableSpots = location.numberofspots - bookedSpots;
   
         return (
           <LocationCard
@@ -39,10 +37,9 @@ async function LocationsTileViewPage() {
             name={getStreetFromAddress(location.address)}
             address={location.address}
             numberOfSpots={location.numberofspots}
-            spotsAvailable={availableSpots}
-            spotsBooked={bookedSpots}
             status={location.status}
             price={location.price}
+            dynamicPricing={location.dynamicPricing ?? true}
           />
         );
       })}

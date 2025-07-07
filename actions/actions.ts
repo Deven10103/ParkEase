@@ -91,7 +91,8 @@ export async function findNearbyLocations(maxDistance: number, searchParams: Sea
                     },
                     $maxDistance: maxDistance // meters
                 }
-            }
+            },
+            status: ParkingLocationStatus.AVAILABLE,
         }).lean() as unknown as ParkingLocation[]
 
         // go through all locations and find the bookings for it

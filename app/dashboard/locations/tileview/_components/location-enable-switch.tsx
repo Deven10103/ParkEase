@@ -30,7 +30,6 @@ function LocationToggleSwitch({ props }: { props: string }) {
     }
     return (
         <div className={`flex justify-between ${active ? 'text-green-500' : 'text-gray-200'}`}>
-            {name}
             {
                 isPending ? <Loader /> : <Switch checked={active} onClick={handleToggleSwitch} />
             }

@@ -41,7 +41,9 @@ export type MapParams = {
     price?: Price,
     type?: string,
     status?: string,
-    radius?: number
+    radius?: number,
+    dynamicPricing?: boolean;
+    locationCategory?: string;
 }
 
 export enum BookingStatus {
