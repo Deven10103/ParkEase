@@ -123,32 +123,38 @@ export const destinationPin = (type: string) => {
   return pinElement
 }
 
-export type ReturnType = {
-  time: string,
-  display: string
+type ReturnType = {
+  time: string // in HH:mm 24-hour format
+  display: string // in 12-hour format with AM/PM
 }
-export function getTimeSlots(startTime = "00:00", endTime="23:45"): ReturnType[] {
-  const timeArray : ReturnType[] = []
+
+export function getTimeSlots(startTime = "00:00", endTime = "23:45"): ReturnType[] {
+  const timeArray: ReturnType[] = []
   const parsedStartTime: Date = new Date(`2000-01-01T${startTime}:00`)
   const parsedEndTime: Date = new Date(`2000-01-01T${endTime}:00`)
 
-  let currentTime: Date = parsedStartTime
+  let currentTime: Date = new Date(parsedStartTime)
+
   while (currentTime <= parsedEndTime) {
-    const hours = currentTime.getHours().toString().padStart(2, "0")
+    const hours24 = currentTime.getHours()
     const minutes = currentTime.getMinutes().toString().padStart(2, "0")
-    const ampm = currentTime.getHours() < 12 ? "AM" : "PM"
-    const timeString = `${hours}:${minutes} ${ampm}`
-    timeArray.push({
-      time: `${hours}:${minutes}`,
-      display: timeString
-    })
+
+    // Convert to 12-hour format
+    let hours12 = hours24 % 12
+    if (hours12 === 0) hours12 = 12
+    const ampm = hours24 < 12 ? "AM" : "PM"
+
+    const time = `${hours24.toString().padStart(2, "0")}:${minutes}`
+    const display = `${hours12}:${minutes} ${ampm}`
+
+    timeArray.push({ time, display })
 
     currentTime.setMinutes(currentTime.getMinutes() + 30)
   }
 
   return timeArray
+}
 
-  }
 
 export function sortcomparer(b1: Booking, b2: Booking) {
   return compareAsc(b1.starttime, b2.starttime)
